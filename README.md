@@ -21,7 +21,7 @@ In the model:
   <img src="schelling_2d_manifold_2.png" width="48%" /> 
 </p>
 
-The visualizations show how two key parameters affect the final state of the system after 15 iterations:
+The visualizations show how two key parameters affect the final state of the system after 15 iterations on a grid search space of 9801 simulation runs:
 
 1. **Empty Ratio (y-axis)**: The proportion of cells that are empty (0-1)
 2. **Similarity Threshold (x-axis)**: The minimum proportion of similar neighbors an agent requires to be satisfied (0-1)
