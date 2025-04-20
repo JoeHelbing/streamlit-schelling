@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 # Load the simulation results
-with open("schelling_results.json", "r") as f:
+with open("data/schelling_res_var_outcome.json", "r") as f:
     results = json.load(f)
 
 # Convert to DataFrame for easier manipulation
@@ -74,8 +74,8 @@ fig.update_layout(
 )
 
 # Save the interactive plot as HTML
-fig.write_html("schelling_visualization.html")
-print("Visualization saved as 'schelling_visualization.html'")
+fig.write_html("images/schelling_visualization.html")
+print("Visualization saved as 'images/schelling_visualization.html'")
 
 # Optional - create just the 3D surface in a separate file
 fig_3d = go.Figure(
@@ -103,5 +103,5 @@ fig_3d.update_layout(
     margin=dict(l=65, r=50, b=65, t=90),
 )
 
-fig_3d.write_html("schelling_3d_plot.html")
-print("3D plot saved as 'schelling_3d_plot.html'")
+fig_3d.write_html("images/schelling_3d_plot.html")
+print("3D plot saved as 'images/schelling_3d_plot.html'")
