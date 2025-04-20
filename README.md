@@ -17,8 +17,8 @@ In the model:
 
 ## Visualizations Explained
 <p float="left">
-  <img src="schelling_2d_manifold_1.png" width="48%" />
-  <img src="schelling_2d_manifold_2.png" width="48%" /> 
+  <img src="images/schelling_2d_manifold_1.png" width="48%" />
+  <img src="images/schelling_2d_manifold_2.png" width="48%" /> 
 </p>
 
 The visualizations show how two key parameters affect the final state of the system after 15 iterations on a grid search space of 9801 simulation runs:
@@ -27,7 +27,7 @@ The visualizations show how two key parameters affect the final state of the sys
 2. **Similarity Threshold (x-axis)**: The minimum proportion of similar neighbors an agent requires to be satisfied (0-1)
 3. **Mean Similarity (z-axis/color)**: The resulting average similarity ratio across all agents
 
-![Original Board in Streamlit](schelling-simulation.gif)
+![Original Board in Streamlit](images/schelling-simulation.gif)
 ### Key Insights from the Visualization
 
 - When similarity thresholds are low, agents are easily satisfied and the mean similarity stays close to 0.5 (random distribution)
