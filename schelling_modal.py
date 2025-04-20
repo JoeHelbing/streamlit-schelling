@@ -106,23 +106,52 @@ def run_simulation(params):
 
             return total_ratio / count if count > 0 else 0
 
-    # Create model and run simulation
+    # Create model
     model = Schelling(size, empty_ratio, similarity_threshold, n_neighbors, seed)
 
-    # Run for 15 iterations
-    for _ in range(iterations):
+    rows, cols = model.city.shape
+    history = []
+    # Run for given iterations and record metadata at each step
+    for step in range(iterations):
         model.run()
+        agents_snapshot = []
+        for r in range(rows):
+            for c in range(cols):
+                race = int(model.city[r, c])
+                if race != 0:
+                    neighborhood = model.get_neighborhood(r, c)
+                    n_empty = np.count_nonzero(neighborhood == 0)
+                    n_similar = np.count_nonzero(neighborhood == race) - 1
+                    total_non_empty = len(neighborhood) - n_empty - 1
+                    sim_ratio = (
+                        float(n_similar / total_non_empty)
+                        if total_non_empty > 0
+                        else 0.0
+                    )
+                    agents_snapshot.append(
+                        {
+                            "row": r,
+                            "col": c,
+                            "race": race,
+                            "similarity_ratio": sim_ratio,
+                        }
+                    )
+        history.append({"step": step, "agents": agents_snapshot})
 
-    # Return result as a dictionary
+    # Compute final mean similarity
+    mean_sim = float(model.get_mean_similarity_ratio())
+
+    # Return result including history of agent metadata
     return {
         "empty_ratio": float(empty_ratio),
         "similarity_threshold": float(similarity_threshold),
-        "mean_similarity": float(model.get_mean_similarity_ratio()),
+        "mean_similarity": mean_sim,
+        "history": history,
     }
 
 
 @app.local_entrypoint()
-def main(output_file="schelling_results.json"):
+def main(output_file="schelling_results_metadata.json"):
     # Define parameter ranges with 0.01 step size
     empty_ratios = [round(x, 2) for x in np.arange(0.01, 1.00, 0.01)]
     similarity_thresholds = [round(x, 2) for x in np.arange(0.01, 1.00, 0.01)]
